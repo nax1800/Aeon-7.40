@@ -141,18 +141,31 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="AbilitiesHandler.h" />
+    <ClInclude Include="AbilitiesHooks.h" />
+    <ClInclude Include="Defines.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="GameModeHooks.h" />
     <ClInclude Include="Globals.h" />
+    <ClInclude Include="HookingManager.h" />
     <ClInclude Include="Memory.h" />
+    <ClInclude Include="MinHook\include\MinHook.h" />
     <ClInclude Include="Offsets.h" />
+    <ClInclude Include="PlayerControllerHooks.h" />
     <ClInclude Include="PropertyFixup.hpp" />
     <ClInclude Include="SDK.hpp" />
     <ClInclude Include="SDKUtils.h" />
+    <ClInclude Include="ServerHandler.h" />
+    <ClInclude Include="ServerHooks.h" />
     <ClInclude Include="UnrealContainers.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp" />
+    <ClCompile Include="MinHook\src\buffer.c" />
+    <ClCompile Include="MinHook\src\hde\hde32.c" />
+    <ClCompile Include="MinHook\src\hde\hde64.c" />
+    <ClCompile Include="MinHook\src\hook.c" />
+    <ClCompile Include="MinHook\src\trampoline.c" />
     <ClCompile Include="SDK\Basic.cpp" />
     <ClCompile Include="SDK\CoreUObject_functions.cpp" />
     <ClCompile Include="SDK\Engine_functions.cpp" />

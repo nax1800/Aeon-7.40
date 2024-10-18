@@ -6139,13 +6139,49 @@ static_assert(offsetof(FDataTableRowHandle, RowName) == 0x000008, "Member 'FData
 
 // ScriptStruct Engine.FastArraySerializer
 // 0x00B0 (0x00B0 - 0x0000)
-struct alignas(0x08) FFastArraySerializer
+struct FFastArraySerializer
 {
 public:
-	uint8                                         Pad_0[0xB0];                                       // 0x0000(0x00B0)(Fixing Struct Size After Last Property [ Dumper-7 ])
+	uint8 ItemMap[0x50];
+	int32                IDCounter;
+	int32                ArrayReplicationKey;
+	uint8 GuidReferencesMap[0x50];
+	// Cached item counts, used for fast sanity checking when writing.
+	int32                CachedNumItems;
+	int32                CachedNumItemsToConsiderForWriting;
+
+	/** This must be called if you add or change an item in the array */
+	void MarkItemDirty(FFastArraySerializerItem& Item)
+	{
+		if (Item.ReplicationID == -1)
+		{
+			Item.ReplicationID = ++IDCounter;
+			if (IDCounter == -1)
+				IDCounter++;
+		}
+
+		Item.ReplicationKey++;
+		MarkArrayDirty();
+	}
+
+	/** This must be called if you just remove something from the array */
+	void MarkArrayDirty()
+	{
+		// ItemMap.Reset();        // This allows to clients to add predictive elements to arrays without affecting replication.
+		IncrementArrayReplicationKey();
+
+		// Invalidate the cached item counts so that they're recomputed during the next write
+		CachedNumItems = -1;
+		CachedNumItemsToConsiderForWriting = -1;
+	}
+
+	void IncrementArrayReplicationKey()
+	{
+		ArrayReplicationKey++;
+		if (ArrayReplicationKey == -1)
+			ArrayReplicationKey++;
+	}
 };
-static_assert(alignof(FFastArraySerializer) == 0x000008, "Wrong alignment on FFastArraySerializer");
-static_assert(sizeof(FFastArraySerializer) == 0x0000B0, "Wrong size on FFastArraySerializer");
 
 // ScriptStruct Engine.InputScaleBias
 // 0x0008 (0x0008 - 0x0000)

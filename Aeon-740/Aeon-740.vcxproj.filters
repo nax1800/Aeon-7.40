@@ -17,6 +17,21 @@
     <ClCompile Include="SDK\Basic.cpp">
       <Filter>SDK</Filter>
     </ClCompile>
+    <ClCompile Include="MinHook\src\trampoline.c">
+      <Filter>MinHook</Filter>
+    </ClCompile>
+    <ClCompile Include="MinHook\src\hook.c">
+      <Filter>MinHook</Filter>
+    </ClCompile>
+    <ClCompile Include="MinHook\src\hde\hde32.c">
+      <Filter>MinHook</Filter>
+    </ClCompile>
+    <ClCompile Include="MinHook\src\hde\hde64.c">
+      <Filter>MinHook</Filter>
+    </ClCompile>
+    <ClCompile Include="MinHook\src\buffer.c">
+      <Filter>MinHook</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
@@ -36,6 +51,26 @@
     <ClInclude Include="Globals.h" />
     <ClInclude Include="SDKUtils.h" />
     <ClInclude Include="Memory.h" />
+    <ClInclude Include="Defines.h" />
+    <ClInclude Include="MinHook\include\MinHook.h">
+      <Filter>MinHook</Filter>
+    </ClInclude>
+    <ClInclude Include="HookingManager.h" />
+    <ClInclude Include="ServerHooks.h">
+      <Filter>Hooks</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerControllerHooks.h">
+      <Filter>Hooks</Filter>
+    </ClInclude>
+    <ClInclude Include="AbilitiesHooks.h">
+      <Filter>Hooks</Filter>
+    </ClInclude>
+    <ClInclude Include="AbilitiesHandler.h">
+      <Filter>Handlers</Filter>
+    </ClInclude>
+    <ClInclude Include="ServerHandler.h">
+      <Filter>Handlers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Hooks">
@@ -43,6 +78,12 @@
     </Filter>
     <Filter Include="SDK">
       <UniqueIdentifier>{8353c46b-c168-4414-bd95-652ac5674b27}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MinHook">
+      <UniqueIdentifier>{9d08f5e3-a905-4e9c-a6c8-40156c8c60c5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Handlers">
+      <UniqueIdentifier>{d04ef15e-c0c2-4123-bede-cbdd8fc5aeef}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

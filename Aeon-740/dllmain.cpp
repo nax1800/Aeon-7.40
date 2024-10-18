@@ -1,18 +1,41 @@
 #include "framework.h"
 
-DWORD Initialize(LPVOID)
+DWORD InputThread(LPVOID)
+{
+    while (true)
+    {
+        if (GetAsyncKeyState(VK_F6) & 0x01)
+        {
+            UKismetSystemLibrary::ExecuteConsoleCommand(UWorld::GetWorld(), L"startaircraft", nullptr);
+        }
+    }
+}
+
+void Initialize()
 {
     AllocConsole();
     FILE* File;
-    freopen_s(&File, "Aeon.log", "w+", stdout);
+    freopen_s(&File, "CONOUT$", "w+", stdout);
+    SetConsoleTitleA("Aeon");
+
+    MH_Initialize();
+
+    for (uintptr_t ByteOffset : GOffsets::BytesToPatch)
+    {
+        Memory::PatchByte(ByteOffset);
+    }
 
     TArray<ULocalPlayer*>& LocalPlayers = UWorld::GetWorld()->OwningGameInstance->LocalPlayers;
     LocalPlayers[0]->PlayerController->SwitchLevel(L"Athena_Terrain");
     LocalPlayers.Remove(0);
+    //LocalPlayers.Free();
 
-    GameModeHooks::Initialize();
+    *(bool*)Memory::GetAddress(GOffsets::GIsClient) = false;
 
-    return 0;
+    Hooks::Server::Initialize();
+    Hooks::GameMode::Initialize();
+    Hooks::PlayerController::Initialize();
+    Hooks::Abilities::Initialize();
 }
 
 BOOL APIENTRY DllMain(HMODULE hModule, DWORD ulReason, LPVOID lpReserved)
@@ -20,7 +43,7 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD ulReason, LPVOID lpReserved)
     switch (ulReason)
     {
     case DLL_PROCESS_ATTACH:
-        CreateThread(0, 0, Initialize, 0, 0, 0);
+        Initialize();
     case DLL_THREAD_ATTACH:
     case DLL_THREAD_DETACH:
     case DLL_PROCESS_DETACH:

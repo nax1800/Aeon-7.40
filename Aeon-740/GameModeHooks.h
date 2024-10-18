@@ -1,54 +1,65 @@
 #pragma once
 #include "framework.h"
 
-namespace GameModeHooks
+namespace Hooks
 {
-	bool (*oReadyToStartMatch)(AGameMode* GameMode);
-	bool hkReadyToStartMatch(AFortGameMode* GameMode)
+	namespace GameMode
 	{
-		auto GameState = static_cast<AFortGameStateAthena*>(GameMode->GameState);
-
-		if (!Globals::bPlaylistSetup)
+		bool hkReadyToStartMatch(AFortGameModeAthena* GameMode)
 		{
-			Globals::bPlaylistSetup = true;
-			auto Playlist = SDKUtils::FindObject<UFortPlaylistAthena>("/Game/Athena/Playlists/Playlist_DefaultSolo.Playlist_DefaultSolo");
-			if (Playlist)
-			{
-				GameState->CurrentPlaylistId = Playlist->PlaylistId;
-				FPlaylistPropertyArray& PlaylistInfo = GameState->CurrentPlaylistInfo;
-				PlaylistInfo.BasePlaylist = Playlist;
-				PlaylistInfo.OverridePlaylist = Playlist;
-				PlaylistInfo.PlaylistReplicationKey++;
+			auto GameState = static_cast<AFortGameStateAthena*>(GameMode->GameState);
 
-				GameState->OnRep_CurrentPlaylistId();
+			if (!Globals::bPlaylistSetup)
+			{
+				Globals::bPlaylistSetup = true;
+				auto Playlist = SDKUtils::FindObject<UFortPlaylistAthena>("/Game/Athena/Playlists/Playlist_DefaultSolo.Playlist_DefaultSolo");
+				if (Playlist)
+				{
+					LogInfo("GameMode::ReadyToStartMatch: Playlist is setting up...");
+					GameState->CurrentPlaylistId = Playlist->PlaylistId;
+					FPlaylistPropertyArray& PlaylistInfo = GameState->CurrentPlaylistInfo;
+					PlaylistInfo.BasePlaylist = Playlist;
+					PlaylistInfo.OverridePlaylist = Playlist;
+					PlaylistInfo.PlaylistReplicationKey++;
+					PlaylistInfo.MarkArrayDirty();
+
+					GameState->OnRep_CurrentPlaylistId();
+					GameState->OnRep_CurrentPlaylistInfo();
+				}
+			}
+
+			if (!GameState->MapInfo)
+				return false;
+
+			if (!Globals::bListening)
+			{
+				ServerHandler::Listen();
+				GameMode->GameSession->MaxPlayers = 100;
+				GameMode->WarmupRequiredPlayerCount = 1;
+
 				GameState->OnRep_CurrentPlaylistInfo();
 			}
+
+			GameMode->bWorldIsReady = true;
+
+			return Defines::GameMode::ReadyToStartMatch(GameMode);
 		}
 
-		if (!GameState->MapInfo)
-			return false;
-
-		if (!Globals::bListening)
+		APawn* hkSpawnDefaultPawnFor(AGameMode* GameMode, AController* NewPlayer, AActor* StartSpot)
 		{
-			Globals::bListening = true;
+			if (NewPlayer && StartSpot)
+			{
+				auto Transform = StartSpot->GetTransform();
+				return GameMode->SpawnDefaultPawnAtTransform(NewPlayer, Transform);
+			}
+
+			return nullptr;
 		}
 
-		return oReadyToStartMatch(GameMode);
-	}
-
-	APawn* hkSpawnDefaultPawnFor(AGameMode* GameMode, AController* NewPlayer, AActor* StartSpot)
-	{
-		if (NewPlayer && StartSpot)
+		void Initialize()
 		{
-			auto Transform = StartSpot->GetTransform();
-			return GameMode->SpawnDefaultPawnAtTransform(NewPlayer, Transform);
+			HookingManager::CreateMinHook(Memory::GetAddress(GOffsets::GameMode::ReadyToStartMatch), hkReadyToStartMatch, (void**)&Defines::GameMode::ReadyToStartMatch);
+			HookingManager::CreateMinHook(Memory::GetAddress(GOffsets::GameMode::SpawnDefaultPawnFor), hkSpawnDefaultPawnFor);
 		}
-
-		return nullptr;
-	}
-
-	void Initialize()
-	{
-
 	}
 }

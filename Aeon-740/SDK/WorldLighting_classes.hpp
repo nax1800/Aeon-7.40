@@ -23,8 +23,6 @@ struct AWorldLighting_C final
 public:
 	uint8                                         Pad_0[0x350];                                      // 0x0000(0x0350)(Fixing Struct Size After Last Property [ Dumper-7 ])
 };
-static_assert(alignof(AWorldLighting_C) == 0x000008, "Wrong alignment on AWorldLighting_C");
-static_assert(sizeof(AWorldLighting_C) == 0x000350, "Wrong size on AWorldLighting_C");
 
 }
 

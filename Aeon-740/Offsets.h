@@ -3,6 +3,14 @@
 
 namespace GOffsets
 {
+	static vector<uintptr_t> BytesToPatch{
+		0xdb564d
+	};
+
+	static vector<uintptr_t> FuncsToNull{
+
+	};
+
 	static uintptr_t StaticFindObject = 0x1b51790;
 	static uintptr_t StaticLoadObject = 0x1b528f0;
 
@@ -31,7 +39,7 @@ namespace GOffsets
 	{
 		static uintptr_t PickTeam = 0xd4d810;
 		static uintptr_t RemoveFromAlivePlayers = 0xd52a10;
-		static uintptr_t ReadyToStartMatch = 0xd517e0;
+		static uintptr_t ReadyToStartMatch = 0x2d44e00;
 		static uintptr_t SpawnDefaultPawnFor = 0xd58fc0;
 	}
 
@@ -52,14 +60,40 @@ namespace GOffsets
 		static uintptr_t GetPlayerViewpoint = 0x14033f0;
 	}
 
+	namespace PlayerState
+	{
+		static uintptr_t ApplyCharacterCustomization = 0x14801d0;
+	}
+
 	namespace Server
 	{
+		static uintptr_t CreateNetDriver = 0x2c69d00;
+		static uintptr_t InitListen = 0x4659d0;
+		static uintptr_t SetWorld = 0x29fbce0;
 		static uintptr_t KickPlayer = 0x28cade0;
 		static uintptr_t TickFlush = 0x29fc860;
 		static uintptr_t WorldGetNetMode = 0x2cd6a40;
 		static uintptr_t CollectGarbage = 0x1acee20;
 		static uintptr_t ChangeGameSessionId = 0x1061160;
 		static uintptr_t DispatchRequest = 0xa7d080;
+		static uintptr_t NoMCP = 0x10b1410;
 		static uintptr_t GetMaxTickRate = 0x2c75fe0;
+	}
+}
+
+namespace GIndexs
+{
+	namespace Pawn
+	{
+		static uintptr_t ServerHandlePickup = 0x0;
+	}
+
+	namespace PlayerController
+	{
+		static uintptr_t ServerReadyToStartMatch = 0x260;
+		static uintptr_t ServerLoadingScreenDropped = 0x262;
+		static uintptr_t ServerAcknowledgePossession = 0x106;
+		static uintptr_t ServerExecuteInventoryItem = 0x1f9;
+		static uintptr_t ServerAttemptInventoryDrop = 0x20b;
 	}
 }
