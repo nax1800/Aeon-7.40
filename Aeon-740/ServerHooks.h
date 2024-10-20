@@ -53,7 +53,8 @@ namespace Hooks
 			HookingManager::CreateMinHook(Memory::GetAddress(GOffsets::Server::TickFlush), hkTickFlush, (void**)&Defines::Server::TickFlush);
 			HookingManager::CreateMinHook(Memory::GetAddress(GOffsets::Server::WorldGetNetMode), hkUWorld_GetNetMode);
 			HookingManager::CreateMinHook(Memory::GetAddress(GOffsets::Server::KickPlayer), hkKickPlayer);
-		//	HookingManager::CreateMinHook(Memory::GetAddress(GOffsets::Server::CollectGarbage), hkCollectGarbage);
+			HookingManager::CreateMinHook(Memory::GetAddress(GOffsets::Server::CollectGarbage), hkCollectGarbage);
+			HookingManager::CreateMinHook(Memory::GetAddress(GOffsets::Server::WorldGetNetMode), hkUWorld_GetNetMode);
 			HookingManager::CreateMinHook(Memory::GetAddress(GOffsets::Server::NoMCP), hkNoMCP);
 			HookingManager::CreateMinHook(Memory::GetAddress(GOffsets::Server::DispatchRequest), hkDispatchRequest);
 		}

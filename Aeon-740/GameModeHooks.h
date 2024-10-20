@@ -23,6 +23,8 @@ namespace Hooks
 					PlaylistInfo.PlaylistReplicationKey++;
 					PlaylistInfo.MarkArrayDirty();
 
+					GameMode->CurrentPlaylistName = Playlist->PlaylistName;
+					GameMode->CurrentPlaylistId = Playlist->PlaylistId;
 					GameState->OnRep_CurrentPlaylistId();
 					GameState->OnRep_CurrentPlaylistInfo();
 				}
@@ -31,9 +33,17 @@ namespace Hooks
 			if (!GameState->MapInfo)
 				return false;
 
+			GameMode->DefaultPawnClass = SDK::APlayerPawn_Athena_C::StaticClass();
+
+			GameModeHandler::ShowFoundation(SDKUtils::FindObject<ABuildingFoundation>("/Game/Athena/Maps/Athena_POI_Foundations.Athena_POI_Foundations.PersistentLevel.LF_Athena_POI_25x36"));
+			GameModeHandler::ShowFoundation(SDKUtils::FindObject<ABuildingFoundation>("/Game/Athena/Maps/Athena_POI_Foundations.Athena_POI_Foundations.PersistentLevel.ShopsNew")); 
+
 			if (!Globals::bListening)
 			{
 				ServerHandler::Listen();
+				Hooks::Actor::Initialize();
+				LootHandler::Initialize();
+
 				GameMode->GameSession->MaxPlayers = 100;
 				GameMode->WarmupRequiredPlayerCount = 1;
 

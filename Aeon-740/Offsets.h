@@ -73,7 +73,8 @@ namespace GOffsets
 		static uintptr_t KickPlayer = 0x28cade0;
 		static uintptr_t TickFlush = 0x29fc860;
 		static uintptr_t WorldGetNetMode = 0x2cd6a40;
-		static uintptr_t CollectGarbage = 0x1acee20;
+		static uintptr_t ActorGetNetMode = 0;
+		static uintptr_t CollectGarbage = 0x64b5288;
 		static uintptr_t ChangeGameSessionId = 0x1061160;
 		static uintptr_t DispatchRequest = 0xa7d080;
 		static uintptr_t NoMCP = 0x10b1410;
@@ -95,5 +96,10 @@ namespace GIndexs
 		static uintptr_t ServerAcknowledgePossession = 0x106;
 		static uintptr_t ServerExecuteInventoryItem = 0x1f9;
 		static uintptr_t ServerAttemptInventoryDrop = 0x20b;
+		static uintptr_t ServerCreateBuildingActor = 0x21F;
+		static uintptr_t ServerBeginEditingBuildingActor = 0x226;
+		static uintptr_t ServerEditBuildingActor = 0x221;
+		static uintptr_t ServerEndEditingBuildingActor = 0x224;
+		static uintptr_t ServerPlayEmoteItem = 0x1B9;
 	}
 }

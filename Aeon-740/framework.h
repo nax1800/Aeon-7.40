@@ -24,9 +24,14 @@ using namespace std;
 #include "SDKUtils.h"
 
 #include "AbilitiesHandler.h"
+#include "GameModeHandler.h"
+#include "InventoryHandler.h"
+#include "LootHandler.h"
 #include "ServerHandler.h"
 
 #include "AbilitiesHooks.h"
+#include "ActorHooks.h"
 #include "ServerHooks.h"
 #include "GameModeHooks.h"
+#include "PawnHooks.h"
 #include "PlayerControllerHooks.h"

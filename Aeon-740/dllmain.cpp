@@ -16,25 +16,25 @@ void Initialize()
     AllocConsole();
     FILE* File;
     freopen_s(&File, "CONOUT$", "w+", stdout);
-    SetConsoleTitleA("Aeon");
 
     MH_Initialize();
+
+    TArray<ULocalPlayer*>& LocalPlayers = UWorld::GetWorld()->OwningGameInstance->LocalPlayers;
+    LocalPlayers[0]->PlayerController->SwitchLevel(L"Athena_Terrain");
+    LocalPlayers.Remove(0);
+    LocalPlayers.Free();
 
     for (uintptr_t ByteOffset : GOffsets::BytesToPatch)
     {
         Memory::PatchByte(ByteOffset);
     }
 
-    TArray<ULocalPlayer*>& LocalPlayers = UWorld::GetWorld()->OwningGameInstance->LocalPlayers;
-    LocalPlayers[0]->PlayerController->SwitchLevel(L"Athena_Terrain");
-    LocalPlayers.Remove(0);
-    //LocalPlayers.Free();
-
     *(bool*)Memory::GetAddress(GOffsets::GIsClient) = false;
 
     Hooks::Server::Initialize();
     Hooks::GameMode::Initialize();
     Hooks::PlayerController::Initialize();
+    Hooks::Pawn::Initialize();
     Hooks::Abilities::Initialize();
 }
 

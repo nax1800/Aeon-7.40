@@ -143,14 +143,19 @@
   <ItemGroup>
     <ClInclude Include="AbilitiesHandler.h" />
     <ClInclude Include="AbilitiesHooks.h" />
+    <ClInclude Include="ActorHooks.h" />
     <ClInclude Include="Defines.h" />
     <ClInclude Include="framework.h" />
+    <ClInclude Include="GameModeHandler.h" />
     <ClInclude Include="GameModeHooks.h" />
     <ClInclude Include="Globals.h" />
     <ClInclude Include="HookingManager.h" />
+    <ClInclude Include="InventoryHandler.h" />
+    <ClInclude Include="LootHandler.h" />
     <ClInclude Include="Memory.h" />
     <ClInclude Include="MinHook\include\MinHook.h" />
     <ClInclude Include="Offsets.h" />
+    <ClInclude Include="PawnHooks.h" />
     <ClInclude Include="PlayerControllerHooks.h" />
     <ClInclude Include="PropertyFixup.hpp" />
     <ClInclude Include="SDK.hpp" />

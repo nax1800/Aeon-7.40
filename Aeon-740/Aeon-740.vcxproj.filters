@@ -55,7 +55,6 @@
     <ClInclude Include="MinHook\include\MinHook.h">
       <Filter>MinHook</Filter>
     </ClInclude>
-    <ClInclude Include="HookingManager.h" />
     <ClInclude Include="ServerHooks.h">
       <Filter>Hooks</Filter>
     </ClInclude>
@@ -71,6 +70,20 @@
     <ClInclude Include="ServerHandler.h">
       <Filter>Handlers</Filter>
     </ClInclude>
+    <ClInclude Include="InventoryHandler.h">
+      <Filter>Handlers</Filter>
+    </ClInclude>
+    <ClInclude Include="HookingManager.h">
+      <Filter>Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="ActorHooks.h" />
+    <ClInclude Include="LootHandler.h" />
+    <ClInclude Include="PawnHooks.h">
+      <Filter>Hooks</Filter>
+    </ClInclude>
+    <ClInclude Include="GameModeHandler.h">
+      <Filter>Handlers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Hooks">
@@ -84,6 +97,9 @@
     </Filter>
     <Filter Include="Handlers">
       <UniqueIdentifier>{d04ef15e-c0c2-4123-bede-cbdd8fc5aeef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Managers">
+      <UniqueIdentifier>{0248d898-7dfd-4dd0-b9f5-373cfa6bc60f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

@@ -3,12 +3,18 @@
 
 namespace Defines
 {
+
 	namespace Abilities
 	{
 		FGameplayAbilitySpecHandle* (*GiveAbility)(UAbilitySystemComponent* _this, FGameplayAbilitySpecHandle* outHandle, FGameplayAbilitySpec inSpec) = decltype(GiveAbility)(Memory::GetAddress(GOffsets::Abilities::GiveAbility));
 		__int64 (*GiveAbilityAndActivateOnce)(void*, FGameplayAbilitySpecHandle*, FGameplayAbilitySpec) = decltype(GiveAbilityAndActivateOnce)(Memory::GetAddress(GOffsets::Abilities::GiveAbilityAndActivateOnce));
 		bool (*InternalTryActivateAbility)(UAbilitySystemComponent* _this, FGameplayAbilitySpecHandle Handle, FPredictionKey InPredictionKey, UGameplayAbility** OutInstancedAbility, void* OnGameplayAbilityEndedDelegate, FGameplayEventData* TriggerEventData) = decltype(InternalTryActivateAbility)(Memory::GetAddress(GOffsets::Abilities::InternalTryActivateAbility));
 		__int64 (*SpecConstructor)(FGameplayAbilitySpec* spec, UObject* Ability, int Level, int InputID, UObject* SourceObject) = decltype(SpecConstructor)(Memory::GetAddress(GOffsets::Abilities::SpecConstructor));
+	}
+
+	namespace Actor
+	{
+		void (*OnDamageServer)(ABuildingActor*, float, FGameplayTagContainer, FVector, FHitResult, AActor*, AActor*, FGameplayEffectContextHandle);
 	}
 
 	namespace GameMode
@@ -20,6 +26,7 @@ namespace Defines
 	{
 		void (*ServerReadyToStartMatch)(AFortPlayerController* PlayerController);
 		void (*ServerLoadingScreenDropped)(AFortPlayerControllerAthena* PlayerController);
+		void (*EnterAircraft)(AFortPlayerControllerAthena* PlayerController, unsigned __int64 a2);
 	}
 
 	namespace PlayerState
